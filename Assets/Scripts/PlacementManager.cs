@@ -117,6 +117,8 @@ public class PlacementManager : MonoBehaviour
 
     private void ExitPlacementMode()
     {
+        Debug.Log("Exited placement mode.");
+
         if (previewObject != null)
         {
             Destroy(previewObject);
