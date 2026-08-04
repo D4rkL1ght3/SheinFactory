@@ -17,6 +17,10 @@ public class ProcessorTool : PlaceableTool
     [SerializeField] private Transform itemAnchor;
     [SerializeField] private Transform outputPoint;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip processingSound;
+
     private MaterialItem currentItem;
     private MaterialRecipe currentRecipe;
 
@@ -24,6 +28,14 @@ public class ProcessorTool : PlaceableTool
     private bool isProcessed;
 
     public bool IsOccupied => currentItem != null;
+
+    private void Start()
+    {
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+    }
 
     public override bool ReceiveMaterial(MaterialItem item)
     {
@@ -75,6 +87,11 @@ public class ProcessorTool : PlaceableTool
 
     private void ProcessItem()
     {
+        if (audioSource != null && processingSound != null)
+        {
+            audioSource.PlayOneShot(processingSound);
+        }
+
         processingTimer += Time.deltaTime;
 
         if (processingTimer >= processingTime)
