@@ -82,8 +82,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.3283019, g: 0.3283019, b: 0.3283019, a: 1}
+  m_Sprite: {fileID: -4783792172583464109, guid: bedb4454170a27b4ea499038f6a56981, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -106,6 +106,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MaterialItem
   materialSprites:
   - materialType: 0
-    sprite: {fileID: 7482667652216324306, guid: 057644ee4a797ba4c83332eeb120f65b, type: 3}
+    sprite: {fileID: -4783792172583464109, guid: bedb4454170a27b4ea499038f6a56981, type: 3}
+  - materialType: 1
+    sprite: {fileID: -2751353035541500269, guid: bedb4454170a27b4ea499038f6a56981, type: 3}
+  - materialType: 2
+    sprite: {fileID: 6646162547293380261, guid: bedb4454170a27b4ea499038f6a56981, type: 3}
+  - materialType: 3
+    sprite: {fileID: 7779329924627028970, guid: bedb4454170a27b4ea499038f6a56981, type: 3}
+  - materialType: 5
+    sprite: {fileID: -3893883113021184817, guid: bedb4454170a27b4ea499038f6a56981, type: 3}
+  - materialType: 6
+    sprite: {fileID: -7449280860467944057, guid: bedb4454170a27b4ea499038f6a56981, type: 3}
   materialType: 0
   spriteRenderer: {fileID: 3195312091051111809}
