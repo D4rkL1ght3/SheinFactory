@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine;
 
 public class PlacementManager : MonoBehaviour
@@ -69,6 +69,9 @@ public class PlacementManager : MonoBehaviour
     private void HandlePlacement()
     {
         if (currentMode != EditMode.Placement)
+            return;
+
+        if (IsPointerOverUI())
             return;
 
         if (currentToolPrefab == null)
@@ -165,6 +168,12 @@ public class PlacementManager : MonoBehaviour
 
     private void UpdateRemoveMode()
     {
+        if (IsPointerOverUI())
+        {
+            ClearHighlightedTool();
+            return;
+        }
+
         Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Vector2Int gridPos = gridManager.WorldToGrid(mouseWorld);
@@ -220,6 +229,16 @@ public class PlacementManager : MonoBehaviour
         if (currentMode != EditMode.Placement)
             return;
 
+        if (IsPointerOverUI())
+        {
+            previewObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            previewObject.SetActive(true);
+        }
+
         Vector3 snappedPos = gridManager.GetSnappedMousePosition();
         Vector2Int gridPos = gridManager.WorldToGrid(snappedPos);
 
@@ -242,5 +261,11 @@ public class PlacementManager : MonoBehaviour
         {
             col.enabled = false;
         }
+    }
+
+    private bool IsPointerOverUI()
+    {
+        return EventSystem.current != null &&
+               EventSystem.current.IsPointerOverGameObject();
     }
 }
