@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5648583340208187361}
   - component: {fileID: 1972934280358829870}
   - component: {fileID: 3543673968695747096}
-  - component: {fileID: 1599513261202760401}
+  - component: {fileID: -7207610366562706804}
   m_Layer: 0
-  m_Name: CrusherTool
+  m_Name: MixerTool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.4867924, g: 0.4867924, b: 0.4867924, a: 1}
+  m_Color: {r: 1, g: 0.58641064, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -141,7 +141,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1599513261202760401
+--- !u!114 &-7207610366562706804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,18 +150,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 142412413330049196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3bb2bd5c3001fa4e948b69ad997a282, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b145a9a4258fbc4c900c8dc92913ff9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProcessorTool
+  m_EditorClassIdentifier: Assembly-CSharp::MixerTool
   gridPosition: {x: 0, y: 0}
   outputDirection: 0
   recipes:
-  - inputMaterial: 0
-    outputMaterial: 3
-  - inputMaterial: 2
-    outputMaterial: 4
-  processingTime: 2
-  itemAnchor: {fileID: 4565617536708524837}
+  - inputA: 3
+    inputB: 2
+    output: 7
+  processingTime: 5
+  itemAnchorA: {fileID: 4565617536708524837}
+  itemAnchorB: {fileID: 4565617536708524837}
   outputPoint: {fileID: 8388171166303506304}
 --- !u!1 &4715765583655651083
 GameObject:
