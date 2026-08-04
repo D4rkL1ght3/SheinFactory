@@ -1,8 +1,8 @@
 public enum MaterialType
 {
     Stone,
-    Sand,
     Wood,
+    Sand,
     Gravel,
     Sawdust,
     StoneBricks,
