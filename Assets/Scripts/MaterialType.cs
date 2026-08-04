@@ -2,5 +2,10 @@ public enum MaterialType
 {
     Stone,
     Sand,
-    Wood
+    Wood,
+    Gravel,
+    Sawdust,
+    StoneBricks,
+    WoodPlanks,
+    Cement
 }

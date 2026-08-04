@@ -16,8 +16,6 @@ public class PlacementManager : MonoBehaviour
 
     private Vector2Int lastPlacedTile = new Vector2Int(int.MinValue, int.MinValue);
 
-    private Dictionary<Vector2Int, PlaceableTool> placedTools = new();
-
     private int rotationIndex = 0;
 
     private void Update()
@@ -83,13 +81,14 @@ public class PlacementManager : MonoBehaviour
         if (tool != null)
         {
             tool.Initialize(gridPos, rotationIndex);
-            placedTools.Add(gridPos, tool);
+
+            gridManager.RegisterTool(gridPos, tool);
         }
     }
 
     private bool IsTileOccupied(Vector2Int gridPos)
     {
-        return placedTools.ContainsKey(gridPos);
+        return gridManager.IsOccupied(gridPos);
     }
 
     public void SetCurrentTool(GameObject prefab)

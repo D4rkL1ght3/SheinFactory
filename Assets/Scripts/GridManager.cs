@@ -1,9 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
     [Header("Grid Settings")]
     [SerializeField] private float cellSize = 1f;
+
+    private Dictionary<Vector2Int, PlaceableTool> occupiedTiles =
+    new Dictionary<Vector2Int, PlaceableTool>();
 
     public static GridManager Instance { get; private set; }
 
@@ -57,5 +61,26 @@ public class GridManager : MonoBehaviour
     public Vector3 GetSnappedMousePosition()
     {
         return GetSnappedPosition(GetMouseWorldPosition());
+    }
+
+    public void RegisterTool(Vector2Int gridPosition, PlaceableTool tool)
+    {
+        occupiedTiles[gridPosition] = tool;
+    }
+
+    public void UnregisterTool(Vector2Int gridPosition)
+    {
+        occupiedTiles.Remove(gridPosition);
+    }
+
+    public bool IsOccupied(Vector2Int gridPosition)
+    {
+        return occupiedTiles.ContainsKey(gridPosition);
+    }
+
+    public PlaceableTool GetToolAtGridPosition(Vector2Int gridPosition)
+    {
+        occupiedTiles.TryGetValue(gridPosition, out PlaceableTool tool);
+        return tool;
     }
 }

@@ -4,9 +4,9 @@ public class PlaceableTool : MonoBehaviour
 {
     public enum Direction
     {
-        Up,
-        Right,
         Down,
+        Right,
+        Up,
         Left
     }
 

@@ -1,5 +1,4 @@
 using UnityEngine;
-using static MaterialItem;
 
 public class MaterialItem : MonoBehaviour
 {

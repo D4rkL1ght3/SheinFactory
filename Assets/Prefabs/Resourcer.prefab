@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Resourcer
   selectedMaterial: 0
-  spawnInterval: 1
+  spawnInterval: 2
   materialPrefab: {fileID: 2665735771042224624, guid: 0ee31b0ae44799a4c891a1264a2bab7b, type: 3}
   resourceSelectionPanel: {fileID: 0}
 --- !u!61 &-7951508055872931839
