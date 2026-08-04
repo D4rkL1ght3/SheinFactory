@@ -3,6 +3,15 @@ using UnityEngine;
 
 public class PlacementManager : MonoBehaviour
 {
+    private enum EditMode
+    {
+        None,
+        Placement,
+        Remove
+    }
+
+    private EditMode currentMode = EditMode.None;
+
     [Header("References")]
     [SerializeField] private GridManager gridManager;
     [SerializeField] private Transform placedToolParent;
@@ -12,7 +21,9 @@ public class PlacementManager : MonoBehaviour
 
     [Header("Placement Preview")]
     private GameObject previewObject;
-    private bool isPlacementMode = false;
+
+    private PlaceableTool highlightedTool;
+    private SpriteRenderer highlightedRenderer;
 
     private Vector2Int lastPlacedTile = new Vector2Int(int.MinValue, int.MinValue);
 
@@ -26,12 +37,21 @@ public class PlacementManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ExitPlacementMode();
+            if (currentMode == EditMode.Placement)
+                ExitPlacementMode();
+
+            else if (currentMode == EditMode.Remove)
+                ExitRemoveMode();
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             lastPlacedTile = new Vector2Int(int.MinValue, int.MinValue);
+        }
+
+        if (currentMode == EditMode.Remove)
+        {
+            UpdateRemoveMode();
         }
     }
 
@@ -48,7 +68,7 @@ public class PlacementManager : MonoBehaviour
 
     private void HandlePlacement()
     {
-        if (!isPlacementMode)
+        if (currentMode != EditMode.Placement)
             return;
 
         if (currentToolPrefab == null)
@@ -111,7 +131,7 @@ public class PlacementManager : MonoBehaviour
 
         PreparePreview(previewObject);
 
-        isPlacementMode = true;
+        currentMode = EditMode.Placement;
     }
 
     private void ExitPlacementMode()
@@ -126,12 +146,78 @@ public class PlacementManager : MonoBehaviour
         previewObject = null;
         currentToolPrefab = null;
 
-        isPlacementMode = false;
+        currentMode = EditMode.None;
+    }
+
+    public void EnterRemoveMode()
+    {
+        ExitPlacementMode();
+
+        currentMode = EditMode.Remove;
+    }
+
+    private void ExitRemoveMode()
+    {
+        ClearHighlightedTool();
+
+        currentMode = EditMode.None;
+    }
+
+    private void UpdateRemoveMode()
+    {
+        Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2Int gridPos = gridManager.WorldToGrid(mouseWorld);
+
+        PlaceableTool tool = gridManager.GetToolAtGridPosition(gridPos);
+
+        if (tool != highlightedTool)
+        {
+            HighlightTool(tool);
+        }
+
+        if (tool != null && Input.GetMouseButton(0))
+        {
+            DeleteTool(tool);
+        }
+    }
+
+    private void HighlightTool(PlaceableTool tool)
+    {
+        ClearHighlightedTool();
+
+        highlightedTool = tool;
+
+        if (highlightedTool == null)
+            return;
+
+        highlightedRenderer = highlightedTool.GetComponent<SpriteRenderer>();
+
+        if (highlightedRenderer != null)
+            highlightedRenderer.color = Color.red;
+    }
+
+    private void ClearHighlightedTool()
+    {
+        if (highlightedRenderer != null)
+            highlightedRenderer.color = Color.white;
+
+        highlightedRenderer = null;
+        highlightedTool = null;
+    }
+
+    private void DeleteTool(PlaceableTool tool)
+    {
+        gridManager.UnregisterTool(tool.GridPosition);
+
+        Destroy(tool.gameObject);
+
+        ClearHighlightedTool();
     }
 
     private void HandlePreview()
     {
-        if (!isPlacementMode)
+        if (currentMode != EditMode.Placement)
             return;
 
         Vector3 snappedPos = gridManager.GetSnappedMousePosition();
