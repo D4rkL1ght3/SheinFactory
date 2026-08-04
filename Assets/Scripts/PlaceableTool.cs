@@ -56,9 +56,9 @@ public class PlaceableTool : MonoBehaviour
     }
 
     // Called when a material enters this tool.
-    public virtual void ReceiveMaterial(GameObject material)
+    public virtual bool ReceiveMaterial(MaterialItem item)
     {
-
+        return false;
     }
 
     // Called when this tool outputs a material.
