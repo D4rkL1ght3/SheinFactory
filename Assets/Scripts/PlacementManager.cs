@@ -195,6 +195,9 @@ public class PlacementManager : MonoBehaviour
     {
         ClearHighlightedTool();
 
+        if (tool.unremovable)
+            return;
+
         highlightedTool = tool;
 
         if (highlightedTool == null)
@@ -217,6 +220,9 @@ public class PlacementManager : MonoBehaviour
 
     private void DeleteTool(PlaceableTool tool)
     {
+        if (tool.unremovable)
+            return;
+
         gridManager.UnregisterTool(tool.GridPosition);
 
         Destroy(tool.gameObject);

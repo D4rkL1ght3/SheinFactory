@@ -32,6 +32,11 @@ public class LevelGenerator : MonoBehaviour
         {
             if (obj != null)
                 Destroy(obj);
+
+            PlaceableTool tool = obj.GetComponent<PlaceableTool>();
+
+            if (tool != null)
+                GridManager.Instance.UnregisterTool(tool.GridPosition);
         }
 
         spawnedObjects.Clear();
@@ -48,18 +53,25 @@ public class LevelGenerator : MonoBehaviour
 
         Vector3 worldPos = GridManager.Instance.GridToWorld(gridPos);
 
-        GameObject extractor = Instantiate(
+        GameObject extractorObj = Instantiate(
             extractorPrefab,
             worldPos,
             Quaternion.identity,
             levelParent);
 
-        spawnedObjects.Add(extractor);
+        // Register the extractor as a PlaceableTool
+        Extractor extractor = extractorObj.GetComponent<Extractor>();
+
+        if (extractor != null)
+        {
+            extractor.Initialize(gridPos, 0);
+
+            GridManager.Instance.RegisterTool(gridPos, extractor);
+        }
+
+        spawnedObjects.Add(extractorObj);
 
         occupiedPositions.Add(gridPos);
-
-        // Optional if your GridManager tracks occupied cells
-        // GridManager.Instance.SetOccupied(gridPos, true);
     }
 
     private void SpawnResourcer()

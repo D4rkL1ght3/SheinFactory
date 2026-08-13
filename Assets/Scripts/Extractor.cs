@@ -1,7 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Extractor : MonoBehaviour
+public class Extractor : PlaceableTool
 {
     [SerializeField] private ObjectiveManager objectiveManager;
 
@@ -11,20 +10,18 @@ public class Extractor : MonoBehaviour
             objectiveManager = FindAnyObjectByType<ObjectiveManager>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public override bool ReceiveMaterial(MaterialItem item)
     {
-        MaterialItem material =
-            other.GetComponent<MaterialItem>();
+        if (objectiveManager == null)
+            return false;
 
-        if (material == null)
-            return;
-
-        bool accepted =
-            objectiveManager.DeliverMaterial(material.MaterialType);
+        bool accepted = objectiveManager.DeliverMaterial(item.MaterialType);
 
         if (accepted)
         {
-            Destroy(material.gameObject);
+            Destroy(item.gameObject);
         }
+
+        return accepted;
     }
 }

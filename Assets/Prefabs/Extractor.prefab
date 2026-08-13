@@ -151,4 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b81cac2ca5362498aa245cb1aab936, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Extractor
+  gridPosition: {x: 0, y: 0}
+  unremovable: 1
+  outputDirection: 0
   objectiveManager: {fileID: 0}

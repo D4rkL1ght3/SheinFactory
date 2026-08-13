@@ -12,6 +12,9 @@ public class PlaceableTool : MonoBehaviour
 
     [Header("Tool Data")]
     [SerializeField] protected Vector2Int gridPosition;
+
+    public bool unremovable = false;
+
     public Vector2Int GridPosition => gridPosition;
 
     [SerializeField] protected Direction outputDirection = Direction.Down;
